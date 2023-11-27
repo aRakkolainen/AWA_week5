@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1= title#name
+    //h2 Ingredients
+    ul
+        each val in ingredients
+            li= val
+
+    //h2 Instructions 
+    ul 
+        each val in instructions
+            li= val
+
+    input(type="text" id="name-text")
+    h4 Ingredients 
+    textarea#ingredients-text 
