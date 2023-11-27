@@ -31,7 +31,7 @@ async function addNewRecipe() {
     addInstructionBtn.addEventListener("click", () => {
         if (newInstruction.value != "" && instructions.indexOf(newInstruction.value) == -1) {
             instructions.push(newInstruction.value);
-            console.log("New instruction added!")
+            console.log("New instruction added!!")
         } 
     })
 
