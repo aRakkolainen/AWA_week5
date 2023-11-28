@@ -13,6 +13,7 @@ let recipes = [];
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Week4' });
 });
+
 //Task 1
 /*router.get('/recipe/:food', function(req, res) {
   //let recipeName = req.params.food; 

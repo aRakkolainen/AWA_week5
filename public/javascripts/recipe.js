@@ -85,7 +85,9 @@ async function sendImages() {
     let text = await response.text(); 
     console.log(text);
 }
-
+function showSpecialDiets() {
+    
+}
 
 function renderPage(recipe) {
     let nameItem = document.getElementById("recipe-name");
@@ -128,8 +130,6 @@ function renderPage(recipe) {
 }
 window.onload = async function() {
     //Task 1
-    //let recipe = await getRecipe()
-    //renderPage(recipe)
     const search = document.getElementById("search");
     
     search.addEventListener("keyup", async (event) => {
