@@ -42,14 +42,15 @@ async function addNewRecipe() {
                 "instructions": instructions,  
                 "ingredients": ingredients
             }
-            let response = await fetch("http://localhost:3000/recipe/", {method: 'POST',
+            let response = await fetch("http://127.0.0.1:3000/recipe/", {method: 'POST',
             headers: {
             "Content-type": "application/json"
              }, 
             body: JSON.stringify(recipe)
+            //body: '{ "name": "' + newRecipeName.value + '", "instructions": ' + instructions + '", "ingredients": '+ingredients + '}'
            });
-           //let data = await response.json(); 
-           //console.log(data);
+           let data = await response; 
+           console.log(data);
         }
 
         sendImages()
@@ -69,7 +70,7 @@ async function sendImages() {
     let imageData = new FormData();
     imageData.append("images", images);
     let body = imageData;
-    let response = await fetch("http://localhost:3000/images", {method: "POST", body,});
+    let response = await fetch("http://127.0.0.1:3000/images", {method: "POST", body,});
     let text = await response.text(); 
     console.log(text);
 }
@@ -95,8 +96,8 @@ function renderPage(recipe) {
 }
 window.onload = async function() {
     //Task 1
-    let recipe = await getRecipe()
-    renderPage(recipe)
+    //let recipe = await getRecipe()
+    //renderPage(recipe)
     
     
     addNewRecipe();

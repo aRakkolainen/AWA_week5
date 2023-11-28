@@ -10,12 +10,17 @@ var usersRouter = require('./routes/users');
 var app = express();
 const mongoose = require("mongoose");
 //Connecting to mongoDB based on lecture materials:
-const mongoDB =  "mongodb://localhost:27017/testdb"
+const mongoDB =  "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise; 
 const db = mongoose.connection; 
-
 db.on("error", console.error.bind(console, "MongoDB connection error"));
+
+//mongoose.connect(mongoDB);
+//mongoose.Promise = Promise; 
+//const db = mongoose.connection; 
+
+//db.on("error", console.error.bind(console, "MongoDB connection error"));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

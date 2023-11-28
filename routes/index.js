@@ -19,41 +19,54 @@ router.get('/', function(req, res, next) {
 })*/
 
 router.get('/recipe/:food', function(req, res) {
-  Recipe.find({}, (err, recipes) => {
+  /*Recipe.find({}, (err, recipes) => {
     if (err) return next(err);
     if (recipes) {
       return res.json(recipes);
     } else {
       return res.status(404).send("Not found");
     }
-  })
+  })*/
   /*let recipe = {
     "name": req.params.food,
     "instructions": ["Bake the dough", "Place the toppings", "Bake in the oven"],
     "ingredients": ["flour", "yeast", "water", "cheese", "tomatoes", "ham", "ketchup", "pineapple"]
-  }
-  res.send(recipe)*/
+  }*/
+  //res.send(recipe)
 })
-router.post("/recipe/", function(req, res) {
 
-  Recipe.findOne({name: req.body.name, instructions: req.body.instructions, ingredients: req.body.ingredients}, (err, Recipe) => {
-    if(err) return next(err);
-    if(!name) {
-        new Recipe({
-          name: req.body.name, 
-          instructions: req.body.instructions, 
-          ingredients: req.body.ingredients
-        }).save((err) => {
-          if(err) return next(err); 
+
+/*Poem.findOne({ poem: req.body.poem}, (err, poem) => {
+  if(err) return next(err);
+  if(!poem) {
+      new Poem({
+          poem: req.body.poem,
+          vip: req.body.vip,
+          date: Date.now()
+      }).save((err) => {
+          if(err) return next(err);
           return res.send(req.body);
-        })
+      });
 
-    } else {
-      return res.status(403).send("Already has this recipe!");
-    }
-  })
+  } else {
+      return res.status(403).send("Already has that poem!");
+
+  }
+
+
+});*/
+
+router.post("/recipe/", async (req, res, next) => {
+  let name = await Recipe.findOne({name: req.body.name}).exec(); 
+  if (!name) {
+    const recipe = new Recipe({name: req.body.name, instructions: req.body.instructions, ingredients: req.body.ingredients})
+    await recipe.save(); 
+    res.send(req.body)
+  } else {
+    return res.status(403).send("Already has this recipe");
+  }
 })
-
+  
 router.post("/images", function(req, res) {
   res.send("Images received!");
 })
