@@ -85,27 +85,44 @@ async function sendImages() {
     let text = await response.text(); 
     console.log(text);
 }
+
+
 function renderPage(recipe) {
-    let ingredientsList = [];
     let nameItem = document.getElementById("recipe-name");
-    if (nameItem.innerText == "") {
+    let ingredientsList = []; 
+    let instructionsList = []; 
+    let Ing_list = document.getElementById("ingredients-list");
+    let Inst_list = document.getElementById("instructions-list");
+    //Creating new elements when none exists in the website
+    if (nameItem.innerText == "" || nameItem.innerText !== recipe.name) {
         nameItem.innerText = recipe.name;
-        ingredientsList = recipe.ingredients; 
-        let instructionsList = recipe.instructions; 
-        let Ing_list = document.getElementById("ingredients-list");
+        if (ingredientsList.length == 0 ) {
+            ingredientsList = recipe.ingredients
+        }
+
+        if (instructionsList.length == 0) {
+            instructionsList = recipe.instructions; 
+        }
+        //Emptying the list in case there is some items already! Based on this: https://www.tutorialspoint.com/how-to-remove-an-added-list-items-using-javascript
+        while (Ing_list.firstChild) {
+            Ing_list.removeChild(Ing_list.firstChild);
+        }
+        while (Inst_list.firstChild) {
+            Inst_list.removeChild(Inst_list.firstChild);
+        }
+    
         ingredientsList.forEach(ingredient => {
             let item = document.createElement("li");
             item.innerText = ingredient; 
             Ing_list.appendChild(item);
         });
 
-        let Inst_list = document.getElementById("instructions-list");
         instructionsList.forEach(instruction => {
         let item = document.createElement("li");
         item.innerText=instruction; 
         Inst_list.appendChild(item);
     });
-    }
+    } 
     
     //body.appendChild(Ing_list);
 }

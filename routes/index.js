@@ -24,7 +24,8 @@ router.get('/', function(req, res, next) {
 })*/
 
 router.get('/recipe/:food', async function(req, res) {
-  let recipeName = req.params.food; 
+  let temp = req.params.food; 
+  let recipeName = temp.charAt(0).toUpperCase() + temp.slice(1);
   let recipe = await Recipe.findOne({name: recipeName}).exec();
   if (!recipe) {
     res.send({"data": "Recipe not found!"})
@@ -49,8 +50,9 @@ router.get('/recipe/:food', async function(req, res) {
 
 router.post("/recipe/", async (req, res, next) => {
   let name = await Recipe.findOne({name: req.body.name}).exec(); 
+  let tempName = req.body.name;
   if (!name) {
-    const recipe = new Recipe({name: req.body.name, instructions: req.body.instructions, ingredients: req.body.ingredients})
+    const recipe = new Recipe({name: tempName.charAt(0).toUpperCase() + tempName.slice(1), instructions: req.body.instructions, ingredients: req.body.ingredients})
     await recipe.save(); 
     res.send(req.body)
   } else {
