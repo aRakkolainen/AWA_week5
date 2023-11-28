@@ -1,3 +1,8 @@
+/*Sources: 
+How to use findOne: https://mongoosejs.com/docs/api/model.html#Model.findOne() 
+Using mongoose: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+*/
+
 var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
@@ -18,7 +23,14 @@ router.get('/', function(req, res, next) {
   res.send(recipe)
 })*/
 
-router.get('/recipe/:food', function(req, res) {
+router.get('/recipe/:food', async function(req, res) {
+  let recipeName = req.params.food; 
+  let recipe = await Recipe.findOne({name: recipeName}).exec();
+  if (!recipe) {
+    res.send({"data": "Recipe not found!"})
+  } else {
+    res.send({"data": recipe});
+  }
   /*Recipe.find({}, (err, recipes) => {
     if (err) return next(err);
     if (recipes) {
@@ -34,27 +46,6 @@ router.get('/recipe/:food', function(req, res) {
   }*/
   //res.send(recipe)
 })
-
-
-/*Poem.findOne({ poem: req.body.poem}, (err, poem) => {
-  if(err) return next(err);
-  if(!poem) {
-      new Poem({
-          poem: req.body.poem,
-          vip: req.body.vip,
-          date: Date.now()
-      }).save((err) => {
-          if(err) return next(err);
-          return res.send(req.body);
-      });
-
-  } else {
-      return res.status(403).send("Already has that poem!");
-
-  }
-
-
-});*/
 
 router.post("/recipe/", async (req, res, next) => {
   let name = await Recipe.findOne({name: req.body.name}).exec(); 

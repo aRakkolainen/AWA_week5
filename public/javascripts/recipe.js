@@ -1,10 +1,21 @@
+/* Sources:
+How to check when Enter key is pressed in text inputfield: https://blog.devgenius.io/how-to-detect-the-pressing-of-the-enter-key-in-a-text-input-field-with-javascript-380fb2be2b9e  */
 
-async function getRecipe() {
-    let response = await fetch("http://localhost:3000/recipe/pizza")
+async function searchRecipe(recipeName) {
+    let url = "http://127.0.0.1:3000/recipe/"+recipeName;
+    let response = await fetch(url);
     let recipe = await response.json(); 
-    //console.log(recipe)
-    return recipe
-//console.log(response.json())
+    if (recipe.data == "Recipe not found!") {
+        console.log("Recipe not found!");
+        return
+    } else {
+        let foundRecipe = {
+            name: recipe.data.name,
+            instructions: recipe.data.instructions, 
+            ingredients: recipe.data.ingredients
+        }
+        renderPage(foundRecipe)
+    }
 }
 async function addNewRecipe() {
     //Finding elements: 
@@ -75,8 +86,12 @@ async function sendImages() {
     console.log(text);
 }
 function renderPage(recipe) {
+    let ingredientsList = [];
     let nameItem = document.getElementById("recipe-name");
-    let ingredientsList = recipe.ingredients; 
+    if (ingredientsList.length == 0) {
+        
+    }
+    ingredientsList = recipe.ingredients; 
     let instructionsList = recipe.instructions; 
     nameItem.innerText = recipe.name;
     let Ing_list = document.getElementById("ingredients-list");
@@ -98,7 +113,16 @@ window.onload = async function() {
     //Task 1
     //let recipe = await getRecipe()
     //renderPage(recipe)
+    const search = document.getElementById("search");
     
+    search.addEventListener("keyup", async (event) => {
+        if(event.key === "Enter"){
+            if (search.value !== "") {
+                console.log("Looking for a recipe for " + search.value + "..");
+                await searchRecipe(search.value);
+            }
+        }
+    })
     
     addNewRecipe();
 
