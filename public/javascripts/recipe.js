@@ -88,25 +88,25 @@ async function sendImages() {
 function renderPage(recipe) {
     let ingredientsList = [];
     let nameItem = document.getElementById("recipe-name");
-    if (ingredientsList.length == 0) {
-        
-    }
-    ingredientsList = recipe.ingredients; 
-    let instructionsList = recipe.instructions; 
-    nameItem.innerText = recipe.name;
-    let Ing_list = document.getElementById("ingredients-list");
-    ingredientsList.forEach(ingredient => {
-        let item = document.createElement("li");
-        item.innerText = ingredient; 
-        Ing_list.appendChild(item);
-    });
+    if (nameItem.innerText == "") {
+        nameItem.innerText = recipe.name;
+        ingredientsList = recipe.ingredients; 
+        let instructionsList = recipe.instructions; 
+        let Ing_list = document.getElementById("ingredients-list");
+        ingredientsList.forEach(ingredient => {
+            let item = document.createElement("li");
+            item.innerText = ingredient; 
+            Ing_list.appendChild(item);
+        });
 
-    let Inst_list = document.getElementById("instructions-list");
-    instructionsList.forEach(instruction => {
+        let Inst_list = document.getElementById("instructions-list");
+        instructionsList.forEach(instruction => {
         let item = document.createElement("li");
-        item.innerText =instruction; 
+        item.innerText=instruction; 
         Inst_list.appendChild(item);
     });
+    }
+    
     //body.appendChild(Ing_list);
 }
 window.onload = async function() {
