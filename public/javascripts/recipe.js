@@ -93,7 +93,7 @@ function renderPage(recipe) {
     let instructionsList = []; 
     let Ing_list = document.getElementById("ingredients-list");
     let Inst_list = document.getElementById("instructions-list");
-    //Creating new elements when none exists in the website
+    //Creating new elements when none exists in the website or when the recipe name is changed
     if (nameItem.innerText == "" || nameItem.innerText !== recipe.name) {
         nameItem.innerText = recipe.name;
         if (ingredientsList.length == 0 ) {
