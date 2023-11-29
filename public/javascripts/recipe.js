@@ -70,16 +70,20 @@ async function addNewRecipe() {
                 "instructions": instructions,  
                 "ingredients": ingredients
             }
-            let response = await fetch("http://127.0.0.1:3000/recipe/", {method: 'POST',
-            headers: {
-            "Content-type": "application/json"
-             }, 
-            body: JSON.stringify(recipe)
+            try {
+                let response = await fetch("http://127.0.0.1:3000/recipe/", {method: 'POST',
+                headers: {
+                "Content-type": "application/json"
+                }, 
+                body: JSON.stringify(recipe)
             //body: '{ "name": "' + newRecipeName.value + '", "instructions": ' + instructions + '", "ingredients": '+ingredients + '}'
-           });
-           let data = await response; 
-           let text = await response.text();
-           console.log(text);
+            });
+            let data = await response; 
+            let text = await response.text();
+            console.log(text);
+            } catch(error) {
+                console.log("Failed to fetch: ", error);
+            }
         }
 
         sendImages()
