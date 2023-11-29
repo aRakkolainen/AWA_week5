@@ -86,12 +86,12 @@ async function addNewRecipe() {
             }
         }
 
-        sendImages()
+        //sendImages()
     })
 
 }
 
-async function sendImages() {
+/*async function sendImages() {
     const imageInput = document.getElementById("image-input");
     let images_temp = imageInput.files;
     let images = []
@@ -106,7 +106,7 @@ async function sendImages() {
     let response = await fetch("http://127.0.0.1:3000/images", {method: "POST", body,});
     let text = await response.text(); 
     console.log(text);
-}
+}*/
 /*async function showSpecialDiets() {
     try {
         let diets = await fetchSpecialDiets();
