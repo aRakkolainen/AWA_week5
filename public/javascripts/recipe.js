@@ -5,23 +5,23 @@
 
 async function searchRecipe(recipeName) {
     let url = "/recipe/"+recipeName;
-    //try {
-    let response = await fetch(url);
-    let recipe = await response.json(); 
-    if (recipe.data == "Recipe not found!") {
-        console.log("Recipe not found!");
-        return
-    } else {
-        let foundRecipe = {
-            name: recipe.data.name,
-            instructions: recipe.data.instructions, 
-            ingredients: recipe.data.ingredients
-        }
-        renderPage(foundRecipe)
-    } 
-    //} catch (error) {
-        //console.log('Error while fetching the recipe:', error)
-    //}
+    try {
+        let response = await fetch(url);
+        let recipe = await response.json(); 
+        if (recipe.data == "Recipe not found!") {
+            console.log("Recipe not found!");
+            return
+        } else {
+            let foundRecipe = {
+                name: recipe.data.name,
+                instructions: recipe.data.instructions, 
+                ingredients: recipe.data.ingredients
+            }
+            renderPage(foundRecipe)
+        } 
+    } catch (error) {
+        console.log('Error while fetching the recipe:', error)
+    }
 }
 
 /*async function fetchSpecialDiets() {
@@ -173,11 +173,11 @@ window.onload = async function() {
         if(event.key === "Enter"){
             if (search.value !== "") {
                 console.log("Looking for a recipe for " + search.value + "..");
-                try {
-                    await searchRecipe(search.value);
-                } catch(error) {
-                    console.log("Failed to fetch");
-                }
+                //try {
+                await searchRecipe(search.value);
+                //} catch(error) {
+                    //console.log("Failed to fetch");
+                //}
             }
         }
     })
