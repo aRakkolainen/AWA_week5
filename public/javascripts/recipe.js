@@ -23,6 +23,17 @@ async function searchRecipe(recipeName) {
         console.log('Error while fetching the recipe:', error)
     }
 }
+
+async function fetchSpecialDiets() {
+    try {
+        let response = await fetch("http://127.0.0.1:3000/categories")
+        let resultData = await response.json(); 
+        let categories = resultData.categories;
+        return categories;
+    } catch(error) {
+        console.log("Can't fetch the diets:", error);
+    }
+}
 async function addNewRecipe() {
     //Finding elements: 
     const newRecipeName = document.getElementById("name-text");
@@ -91,7 +102,16 @@ async function sendImages() {
     let text = await response.text(); 
     console.log(text);
 }
-function showSpecialDiets() {
+async function showSpecialDiets() {
+    let diets= await fetchSpecialDiets();
+    console.log(diets)
+    const selection = document.getElementById("categories");
+    diets.forEach(diet => {
+        let option = document.createElement("option");
+        option.innerText = diet;
+        selection.appendChild(option)
+    })
+    
 
 }
 
@@ -146,8 +166,10 @@ window.onload = async function() {
             }
         }
     })
-    
+
     addNewRecipe();
+    showSpecialDiets();
+
 
 
 }

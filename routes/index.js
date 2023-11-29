@@ -6,49 +6,46 @@ Using mongoose: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Expre
 var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
-const Recipe = require("../models/Recipe")
+const Recipe = require("../models/Recipe");
+const Category = require("../models/Category");
 let recipes = [];
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Week4' });
 });
+// Fetching special diets from database
+router.get('/categories', async function(req, res) {
+    let categories = []; 
+    try {
 
-//Task 1
-/*router.get('/recipe/:food', function(req, res) {
-  //let recipeName = req.params.food; 
-  let recipe = req.body;
-  //How to send and render at same time: https://expressjs.com/en/guide/using-middleware.html
-  //res.render('recipe', {title: req.body.name, ingredients: recipe.ingredients, instructions: recipe.instructions});
-  //res.render('recipe', {title: req.body.name, ingredients: recipe.ingredients, instructions: recipe.instructions})
-  res.send(recipe)
-})*/
-
+      let data = await Category.find({})
+      data.forEach(diet => {
+        categories.push(diet.name)
+      })
+      res.send({"categories": categories})
+    } catch(error) {
+      console.log("Failed to fetch categories:", error);
+    }
+});
+//Searching recipe
 router.get('/recipe/:food', async function(req, res) {
   let temp = req.params.food; 
   let recipeName = temp.charAt(0).toUpperCase() + temp.slice(1);
+  try {
+
+  
   let recipe = await Recipe.findOne({name: recipeName}).exec();
   if (!recipe) {
     res.send({"data": "Recipe not found!"})
   } else {
     res.send({"data": recipe});
   }
-  /*Recipe.find({}, (err, recipes) => {
-    if (err) return next(err);
-    if (recipes) {
-      return res.json(recipes);
-    } else {
-      return res.status(404).send("Not found");
-    }
-  })*/
-  /*let recipe = {
-    "name": req.params.food,
-    "instructions": ["Bake the dough", "Place the toppings", "Bake in the oven"],
-    "ingredients": ["flour", "yeast", "water", "cheese", "tomatoes", "ham", "ketchup", "pineapple"]
-  }*/
-  //res.send(recipe)
+} catch(error) {
+    console.log("Can't find the recipe:", error);
+}
 })
-
+// Adding new recipe to the database
 router.post("/recipe/", async (req, res, next) => {
   let name = await Recipe.findOne({name: req.body.name}).exec(); 
   let tempName = req.body.name;
