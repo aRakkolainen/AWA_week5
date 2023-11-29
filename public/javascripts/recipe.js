@@ -4,7 +4,7 @@
 */
 
 async function searchRecipe(recipeName) {
-    let url = "http://127.0.0.1:3000/recipe/"+recipeName;
+    let url = "/recipe/"+recipeName;
     try {
         let response = await fetch(url);
         let recipe = await response.json(); 
@@ -71,7 +71,7 @@ async function addNewRecipe() {
                 "ingredients": ingredients
             }
             try {
-                let response = await fetch("http://127.0.0.1:3000/recipe/", {method: 'POST',
+                let response = await fetch("/recipe/", {method: 'POST',
                 headers: {
                 "Content-type": "application/json"
                 }, 
