@@ -6,21 +6,21 @@
 async function searchRecipe(recipeName) {
     let url = "/recipe/"+recipeName;
     //try {
-        let response = await fetch(url);
-        let recipe = await response.json(); 
-        if (recipe.data == "Recipe not found!") {
-            console.log("Recipe not found!");
-            return
-        } else {
-            let foundRecipe = {
-                name: recipe.data.name,
-                instructions: recipe.data.instructions, 
-                ingredients: recipe.data.ingredients
-            }
-            renderPage(foundRecipe)
-        } 
+    let response = await fetch(url);
+    let recipe = await response.json(); 
+    if (recipe.data == "Recipe not found!") {
+        console.log("Recipe not found!");
+        return
+    } else {
+        let foundRecipe = {
+            name: recipe.data.name,
+            instructions: recipe.data.instructions, 
+            ingredients: recipe.data.ingredients
+        }
+        renderPage(foundRecipe)
+    } 
     //} catch (error) {
-        console.log('Error while fetching the recipe:', error)
+        //console.log('Error while fetching the recipe:', error)
     //}
 }
 
