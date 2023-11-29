@@ -18,12 +18,14 @@ router.get('/', function(req, res, next) {
 router.get('/categories', async function(req, res) {
     let categories = []; 
     try {
-
       let data = await Category.find({})
-      data.forEach(diet => {
-        categories.push(diet.name)
-      })
-      res.send({"categories": categories})
+      if (data.length > 0) {
+        data.forEach(diet => {
+          categories.push(diet.name)
+        })
+        res.send({"categories": categories})
+      } 
+    
     } catch(error) {
       console.log("Failed to fetch categories:", error);
     }

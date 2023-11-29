@@ -103,14 +103,20 @@ async function sendImages() {
     console.log(text);
 }
 async function showSpecialDiets() {
-    let diets= await fetchSpecialDiets();
-    console.log(diets)
-    const selection = document.getElementById("categories");
-    diets.forEach(diet => {
-        let option = document.createElement("option");
-        option.innerText = diet;
-        selection.appendChild(option)
-    })
+    try {
+        let diets = await fetchSpecialDiets();
+    //Creating checkboxes dynamically: https://www.techiedelight.com/dynamically-create-checkbox-with-javascript/
+        const options = document.getElementById("categories");
+    /*diets.forEach(diet => {
+        let option = document.createElement("input");
+        option.type = "checkbox";
+        option.value = diet;
+        options.appendChild(option);
+    })*/
+
+} catch(error) {
+    console.log("Failed to find categories:", error);
+}
     
 
 }
