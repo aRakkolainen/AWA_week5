@@ -5,7 +5,7 @@
 
 async function searchRecipe(recipeName) {
     let url = "/recipe/"+recipeName;
-    try {
+    //try {
         let response = await fetch(url);
         let recipe = await response.json(); 
         if (recipe.data == "Recipe not found!") {
@@ -19,9 +19,9 @@ async function searchRecipe(recipeName) {
             }
             renderPage(foundRecipe)
         } 
-    } catch (error) {
+    //} catch (error) {
         console.log('Error while fetching the recipe:', error)
-    }
+    //}
 }
 
 /*async function fetchSpecialDiets() {
@@ -70,7 +70,7 @@ async function addNewRecipe() {
                 "instructions": instructions,  
                 "ingredients": ingredients
             }
-            try {
+            //try {
                 let response = await fetch("/recipe/", {method: 'POST',
                 headers: {
                 "Content-type": "application/json"
@@ -81,9 +81,9 @@ async function addNewRecipe() {
             let data = await response; 
             let text = await response.text();
             console.log(text);
-            } catch(error) {
-                console.log("Failed to fetch: ", error);
-            }
+            //} catch(error) {
+              //  console.log("Failed to fetch: ", error);
+            //}
         }
 
         //sendImages()
@@ -173,7 +173,11 @@ window.onload = async function() {
         if(event.key === "Enter"){
             if (search.value !== "") {
                 console.log("Looking for a recipe for " + search.value + "..");
-                await searchRecipe(search.value);
+                try {
+                    await searchRecipe(search.value);
+                } catch(error) {
+                    console.log("Failed to fetch");
+                }
             }
         }
     })
