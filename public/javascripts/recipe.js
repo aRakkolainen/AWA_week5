@@ -24,7 +24,7 @@ async function searchRecipe(recipeName) {
     }
 }
 
-async function fetchSpecialDiets() {
+/*async function fetchSpecialDiets() {
     try {
         let response = await fetch("http://127.0.0.1:3000/categories")
         let resultData = await response.json(); 
@@ -33,7 +33,7 @@ async function fetchSpecialDiets() {
     } catch(error) {
         console.log("Can't fetch the diets:", error);
     }
-}
+}*/
 async function addNewRecipe() {
     //Finding elements: 
     const newRecipeName = document.getElementById("name-text");
@@ -78,7 +78,8 @@ async function addNewRecipe() {
             //body: '{ "name": "' + newRecipeName.value + '", "instructions": ' + instructions + '", "ingredients": '+ingredients + '}'
            });
            let data = await response; 
-           console.log(data);
+           let text = await response.text();
+           console.log(text);
         }
 
         sendImages()
@@ -102,7 +103,7 @@ async function sendImages() {
     let text = await response.text(); 
     console.log(text);
 }
-async function showSpecialDiets() {
+/*async function showSpecialDiets() {
     try {
         let diets = await fetchSpecialDiets();
     //Creating checkboxes dynamically: https://www.techiedelight.com/dynamically-create-checkbox-with-javascript/
@@ -112,14 +113,14 @@ async function showSpecialDiets() {
         option.type = "checkbox";
         option.value = diet;
         options.appendChild(option);
-    })*/
+    })*
 
 } catch(error) {
     console.log("Failed to find categories:", error);
 }
     
 
-}
+}*/
 
 function renderPage(recipe) {
     let nameItem = document.getElementById("recipe-name");
@@ -174,7 +175,7 @@ window.onload = async function() {
     })
 
     addNewRecipe();
-    showSpecialDiets();
+    //showSpecialDiets();
 
 
 

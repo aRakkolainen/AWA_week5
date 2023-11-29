@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Week4' });
 });
 // Fetching special diets from database
-router.get('/categories', async function(req, res) {
+/*router.get('/categories', async function(req, res) {
     let categories = []; 
     try {
       let data = await Category.find({})
@@ -29,7 +29,7 @@ router.get('/categories', async function(req, res) {
     } catch(error) {
       console.log("Failed to fetch categories:", error);
     }
-});
+});*/
 //Searching recipe
 router.get('/recipe/:food', async function(req, res) {
   let temp = req.params.food; 
