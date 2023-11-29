@@ -1,20 +1,26 @@
 /* Sources:
-How to check when Enter key is pressed in text inputfield: https://blog.devgenius.io/how-to-detect-the-pressing-of-the-enter-key-in-a-text-input-field-with-javascript-380fb2be2b9e  */
+* How to check when Enter key is pressed in text inputfield: https://blog.devgenius.io/how-to-detect-the-pressing-of-the-enter-key-in-a-text-input-field-with-javascript-380fb2be2b9e 
+* example on try-catch syntax with async-await fetch: https://medium.com/@biplavmazumdar5/async-await-with-try-and-catch-get-api-8df3a9d25a7b
+*/
 
 async function searchRecipe(recipeName) {
     let url = "http://127.0.0.1:3000/recipe/"+recipeName;
-    let response = await fetch(url);
-    let recipe = await response.json(); 
-    if (recipe.data == "Recipe not found!") {
-        console.log("Recipe not found!");
-        return
-    } else {
-        let foundRecipe = {
-            name: recipe.data.name,
-            instructions: recipe.data.instructions, 
-            ingredients: recipe.data.ingredients
-        }
-        renderPage(foundRecipe)
+    try {
+        let response = await fetch(url);
+        let recipe = await response.json(); 
+        if (recipe.data == "Recipe not found!") {
+            console.log("Recipe not found!");
+            return
+        } else {
+            let foundRecipe = {
+                name: recipe.data.name,
+                instructions: recipe.data.instructions, 
+                ingredients: recipe.data.ingredients
+            }
+            renderPage(foundRecipe)
+        } 
+    } catch (error) {
+        console.log('Error while fetching the recipe:', error)
     }
 }
 async function addNewRecipe() {
@@ -86,7 +92,7 @@ async function sendImages() {
     console.log(text);
 }
 function showSpecialDiets() {
-    
+
 }
 
 function renderPage(recipe) {
