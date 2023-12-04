@@ -35,17 +35,15 @@ router.get('/recipe/:food', async function(req, res) {
   let temp = req.params.food; 
   let recipeName = temp.charAt(0).toUpperCase() + temp.slice(1);
   try {
-
-  
-  let recipe = await Recipe.findOne({name: recipeName}).exec();
-  if (!recipe) {
-    res.send({"data": "Recipe not found!"})
-  } else {
-    res.send({"data": recipe});
+    let recipe = await Recipe.findOne({name: recipeName}).exec();
+    if (!recipe) {
+      res.send({"data": "Recipe not found!"})
+    } else {
+      res.send({"data": recipe});
+    }
+  } catch(error) {
+      console.log("Can't find the recipe:", error);
   }
-} catch(error) {
-    console.log("Can't find the recipe:", error);
-}
 })
 // Adding new recipe to the database
 router.post("/recipe/", async (req, res, next) => {
