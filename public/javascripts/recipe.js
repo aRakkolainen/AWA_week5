@@ -133,35 +133,35 @@ function renderPage(recipe) {
     let Ing_list = document.getElementById("ingredients-list");
     let Inst_list = document.getElementById("instructions-list");
     //Creating new elements when none exists in the website or when the recipe name is changed
-    if (nameItem.innerText == "" || nameItem.innerText !== recipe.name) {
-        nameItem.innerText = recipe.name;
-        if (ingredientsList.length == 0 ) {
-            ingredientsList = recipe.ingredients
-        }
+    //if (nameItem.innerText == "" || nameItem.innerText !== recipe.name) {
+    nameItem.innerText = recipe.name;
+    if (ingredientsList.length == 0 ) {
+        ingredientsList = recipe.ingredients
+    }
 
-        if (instructionsList.length == 0) {
-            instructionsList = recipe.instructions; 
-        }
+    if (instructionsList.length == 0) {
+        instructionsList = recipe.instructions; 
+    }
         //Emptying the list in case there is some items already! Based on this: https://www.tutorialspoint.com/how-to-remove-an-added-list-items-using-javascript
-        while (Ing_list.firstChild) {
-            Ing_list.removeChild(Ing_list.firstChild);
-        }
-        while (Inst_list.firstChild) {
-            Inst_list.removeChild(Inst_list.firstChild);
-        }
+    while (Ing_list.firstChild) {
+        Ing_list.removeChild(Ing_list.firstChild);
+    }
+    while (Inst_list.firstChild) {
+        Inst_list.removeChild(Inst_list.firstChild);
+    }
     
-        ingredientsList.forEach(ingredient => {
-            let item = document.createElement("li");
-            item.innerText = ingredient; 
-            Ing_list.appendChild(item);
-        });
-
-        instructionsList.forEach(instruction => {
-        let item = document.createElement("li");
-        item.innerText=instruction; 
-        Inst_list.appendChild(item);
+    ingredientsList.forEach(ingredient => {
+    let item = document.createElement("li");
+    item.innerText = ingredient; 
+    Ing_list.appendChild(item);
     });
-    } 
+
+    instructionsList.forEach(instruction => {
+    let item = document.createElement("li");
+    item.innerText=instruction; 
+    Inst_list.appendChild(item);
+    });
+    //} 
     
     //body.appendChild(Ing_list);
 }
